@@ -8,7 +8,7 @@ windowSize = pygame.display.get_desktop_sizes()
 windowList = list(windowSize[0])
 #save windowList before it's changed
 windowListUnch = windowList
-#Lower the y by 100
+#Lower the y by 30
 windowList[1] -= 30
 #Convert back to tuple
 windowSize = tuple(windowList)
