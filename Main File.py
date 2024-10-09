@@ -26,25 +26,24 @@ screen = pygame.display.set_mode(windowSize, flags=RESIZABLE)
 #Makes the mouse invisible
 pygame.mouse.set_visible(False)
 
-#Loads the image of the face
-faceImg = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images','William_img.jpg')).convert_alpha()
+#Loads the image of the spray bottle
+sprayBtImg1 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images', 'Spray Bottle 1.jpg')).convert_alpha()
 
-#Load second image, transform to the right size
-faceImg2 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images','IMG_E0994.JPG')).convert_alpha()
-faceImg2 = pygame.transform.scale(faceImg2, (281,360))
+#Load second image
+sprayBtImg2 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images', 'Spray Bottle 2.jpg')).convert_alpha()
 
-#Load the beep sound effect
-beepSound = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__), 'Sounds and Music','759010__lukacafuka__pin-beep.wav'))
+#Load the spray sound effect
+spraySound = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__), 'Sounds and Music', 'Spray Bottle sfx.wav'))
 
 #Load background music
-pygame.mixer.music.load(os.path.join(os.path.dirname(__file__), 'Sounds and Music','560454__migfus20__epic-trailer-background-music.mp3'))
+pygame.mixer.music.load(os.path.join(os.path.dirname(__file__), 'Sounds and Music','Jazz Music.mp3'))
 #Plays background music
 pygame.mixer.music.play()
 
-#Sets title bar icon to Face img
-pygame.display.set_icon(faceImg)
+#Sets title bar icon to spray bottle img
+pygame.display.set_icon(sprayBtImg1)
 
-#Variables used for changing face img when lmb is pressed
+#Variables used for changing spray bottle img when lmb is pressed
 buttonDown = 0
 timeVar = 0
 
@@ -55,28 +54,28 @@ while running:
 #Lets user exit with "x"
         if event.type == pygame.QUIT:
             running = False
-#Changes face img when lmb is pressed
+#Changes spray bottle img when lmb is pressed
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
-            faceImg = faceImg2
+            sprayBtImg1 = sprayBtImg2
             buttonDown = 1
-#Play beep sound effect when lmb is pressed
-            beepSound.play()
-#Changes face img back after 1/2 sec
+#Play spray sound effect when lmb is pressed
+            spraySound.play()
+#Changes spray bottle img back after 1/2 sec
     if buttonDown == 1:
             timeVar +=1
             if timeVar == 30:
-                faceImg = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images','William_img.jpg')).convert_alpha()
+                sprayBtImg1 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images', 'Spray Bottle 1.jpg')).convert_alpha()
                 timeVar = 0
                 buttonDown = 0
-#Sets background color to cyan
-    screen.fill(color=(0, 250, 250))
-#This bit of code centers the Face img on the mouse
+#Sets background color to green
+    screen.fill(color=(0, 250, 0))
+#This bit of code centers the spray bottle img on the mouse
     pos = pygame.mouse.get_pos()
     facePos = list(pos)
     facePos[0] -= 141
     facePos[1] -= 180
     facePos = tuple(facePos)
-#Blits the Face img to screen
-    screen.blit(faceImg, facePos)
+#Blits the spray bottle img to screen
+    screen.blit(sprayBtImg1, facePos)
     pygame.display.flip()
     clock.tick(60)
