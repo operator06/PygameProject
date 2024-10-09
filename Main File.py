@@ -1,5 +1,5 @@
 import pygame, os
-from pygame import RESIZABLE
+from pygame import RESIZABLE, MOUSEBUTTONDOWN
 
 pygame.init()
 
@@ -29,16 +29,35 @@ pygame.mouse.set_visible(False)
 #Loads the image of the face
 faceImg = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images','William_img.jpg')).convert_alpha()
 
+#Load second image, transform to the right size
+faceImg2 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images','IMG_E0994.JPG')).convert_alpha()
+faceImg2 = pygame.transform.scale(faceImg2, (281,360))
+
 #Sets title bar icon to Face img
 pygame.display.set_icon(faceImg)
+
+#Variables used for changing face img when lmb is pressed
+buttonDown = 0
+timeVar = 0
 
 running = True
 
 while running:
-#Lets user exit with "x"
     for event in pygame.event.get():
+#Lets user exit with "x"
         if event.type == pygame.QUIT:
             running = False
+#Changes face img when lmb is pressed
+        if event.type == MOUSEBUTTONDOWN and event.button == 1:
+            faceImg = faceImg2
+            buttonDown = 1
+#Changes face img back after 1/2 sec
+    if buttonDown == 1:
+            timeVar +=1
+            if timeVar == 30:
+                faceImg = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images','William_img.jpg')).convert_alpha()
+                timeVar = 0
+                buttonDown = 0
 #Sets background color to cyan
     screen.fill(color=(0, 250, 250))
 #This bit of code centers the Face img on the mouse
