@@ -33,6 +33,14 @@ faceImg = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images','Wi
 faceImg2 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images','IMG_E0994.JPG')).convert_alpha()
 faceImg2 = pygame.transform.scale(faceImg2, (281,360))
 
+#Load the beep sound effect
+beepSound = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__), 'Sounds and Music','759010__lukacafuka__pin-beep.wav'))
+
+#Load background music
+pygame.mixer.music.load(os.path.join(os.path.dirname(__file__), 'Sounds and Music','560454__migfus20__epic-trailer-background-music.mp3'))
+#Plays background music
+pygame.mixer.music.play()
+
 #Sets title bar icon to Face img
 pygame.display.set_icon(faceImg)
 
@@ -51,6 +59,8 @@ while running:
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             faceImg = faceImg2
             buttonDown = 1
+#Play beep sound effect when lmb is pressed
+            beepSound.play()
 #Changes face img back after 1/2 sec
     if buttonDown == 1:
             timeVar +=1
