@@ -1,6 +1,7 @@
-import pygame, os
-from pygame import RESIZABLE, MOUSEBUTTONDOWN
+import pygame, os, sys
+from pygame import *
 from random import randint
+from Main_Menu import *
 
 pygame.init()
 
@@ -13,16 +14,24 @@ clock = pygame.time.Clock()
 windowSize = pygame.display.get_desktop_sizes()
 windowList = list(windowSize[0])
 windowListUnch = windowList
-windowList[1] -= 30
+windowList[1] -= 100
 windowSize = tuple(windowList)
-
-#This bit of code sets the top of the title bar to the top of the screen
-x = 0
-y = 30
-os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
 
 #Create the display. Make it right size and let user change size
 screen = pygame.display.set_mode(windowSize, flags=RESIZABLE)
+
+#Load cat image 1
+catImg1 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images', 'Cat Image1.jpg')).convert_alpha()
+
+#Play the main menu
+main_menu(screen,windowListUnch,catImg1)
+
+#Run this again because the main menu breaks it for some reason idk
+windowSize = pygame.display.get_desktop_sizes()
+windowList = list(windowSize[0])
+windowListUnch = windowList
+windowList[1] -= 100
+windowSize = tuple(windowList)
 
 #Makes the mouse invisible
 pygame.mouse.set_visible(False)
@@ -45,9 +54,6 @@ sprayRect = pygame.Rect(sprayPos[0],sprayPos[1],204,358)
 #Load the spray sound effect
 spraySound = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__), 'Sounds and Music', 'Spray Bottle sfx.wav'))
 
-#Load cat image 1
-catImg1 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images', 'Cat Image1.jpg')).convert_alpha()
-
 #Load cat image 2
 catImg2 = pygame.image.load(os.path.join(os.path.dirname(__file__), 'Images', 'Cat Image2.jpg')).convert_alpha()
 
@@ -66,8 +72,8 @@ pygame.mixer.music.load(os.path.join(os.path.dirname(__file__), 'Sounds and Musi
 #Plays background music
 pygame.mixer.music.play()
 
-#Sets title bar icon to spray bottle img
-pygame.display.set_icon(sprayBtImg1)
+#Sets title bar icon to cat image
+pygame.display.set_icon(catImg1)
 
 #Variables used for changing spray bottle img when lmb is pressed
 buttonDown = 0
@@ -83,6 +89,8 @@ while running:
 #Lets user exit with "x"
         if event.type == pygame.QUIT:
             running = False
+            pygame.quit()
+            sys.exit()
 #Changes spray bottle img and cat img when lmb is pressed
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             sprayBtImg1 = sprayBtImg2
